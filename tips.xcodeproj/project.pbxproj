@@ -12,6 +12,8 @@
 		970210981D19B84900F061DA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 970210961D19B84900F061DA /* Main.storyboard */; };
 		9702109A1D19B84900F061DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 970210991D19B84900F061DA /* Assets.xcassets */; };
 		9702109D1D19B84900F061DA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9702109B1D19B84900F061DA /* LaunchScreen.storyboard */; };
+		97329BCC1D19D0D400DF01BD /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97329BCB1D19D0D400DF01BD /* SettingsViewController.swift */; };
+		97BFDD041D1B128B00385B93 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BFDD031D1B128B00385B93 /* Helper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		970210991D19B84900F061DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9702109C1D19B84900F061DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9702109E1D19B84900F061DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		97329BCB1D19D0D400DF01BD /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		97BFDD031D1B128B00385B93 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,9 +61,11 @@
 				970210921D19B84900F061DA /* AppDelegate.swift */,
 				970210941D19B84900F061DA /* ViewController.swift */,
 				970210961D19B84900F061DA /* Main.storyboard */,
+				97329BCB1D19D0D400DF01BD /* SettingsViewController.swift */,
 				970210991D19B84900F061DA /* Assets.xcassets */,
 				9702109B1D19B84900F061DA /* LaunchScreen.storyboard */,
 				9702109E1D19B84900F061DA /* Info.plist */,
+				97BFDD031D1B128B00385B93 /* Helper.swift */,
 			);
 			path = tips;
 			sourceTree = "<group>";
@@ -137,6 +143,8 @@
 			files = (
 				970210951D19B84900F061DA /* ViewController.swift in Sources */,
 				970210931D19B84900F061DA /* AppDelegate.swift in Sources */,
+				97329BCC1D19D0D400DF01BD /* SettingsViewController.swift in Sources */,
+				97BFDD041D1B128B00385B93 /* Helper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,6 +258,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = tips/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = coderschool.tips;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -261,6 +270,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = tips/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = coderschool.tips;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -286,6 +296,7 @@
 				970210A31D19B84900F061DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
