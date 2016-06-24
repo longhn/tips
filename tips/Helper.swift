@@ -13,6 +13,8 @@ import Foundation
  */
 class Helper{
     
+    static let billTextFieldLimit = 8
+    
     // Get default bill field setting
     static func getDefaultBillField() -> String {
         

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController {
+class SettingsViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var defaultBillField: UITextField!
     
@@ -23,15 +23,21 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        defaultBillField.delegate = self
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
         self.detaulTipLabel.alpha = 0
         self.tipControl.alpha = 0
         self.saveSettingButton.alpha = 0
         self.defaultBillField.alpha = 0
         self.defaultBillLabel.alpha = 0
-
+        
         // Do any additional setup after loading the view.
         loadSetting()
-
+        
         UIView.animateWithDuration(1.5, delay: 0.4, options: .CurveEaseOut, animations: {
             self.detaulTipLabel.alpha = 1
             self.tipControl.alpha = 1
@@ -53,6 +59,24 @@ class SettingsViewController: UIViewController {
         defaults.setDouble(NSString(string: defaultBillField.text!).doubleValue, forKey: "defaultBillField")
         defaults.setInteger(tipControl.selectedSegmentIndex, forKey: "selectedSegmentIndex")
         defaults.synchronize()
+        
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+
+    @IBAction func onValueChanged(sender: AnyObject) {
+        // TODO
+    }
+    
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        
+        guard let text = defaultBillField.text else
+        {
+            return true
+        }
+        
+        let newLength = text.characters.count + string.characters.count - range.length
+        
+        return newLength <= Helper.billTextFieldLimit
     }
     
     // Load current setting
@@ -60,19 +84,4 @@ class SettingsViewController: UIViewController {
         defaultBillField.text = Helper.getDefaultBillField()
         tipControl.selectedSegmentIndex = Helper.getSelectedSegmentIndex()
     }
-
-    @IBAction func onValueChanged(sender: AnyObject) {
-        // TODO
-    }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

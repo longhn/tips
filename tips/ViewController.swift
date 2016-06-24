@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var totalLabel: UILabel!
     
@@ -29,9 +29,12 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("view did load")
+        
         // Do any additional setup after loading the view, typically from a nib.
-        loadSetting()
-        calculateTips()
+        
+        // set billField delegate
+        billField.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,12 +44,19 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
         print("view will appear")
+        
+        self.billField.becomeFirstResponder()
+        loadSetting()
+        calculateTips()
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
         print("view did appear")
+        
         self.billField.alpha = 0
         self.billLabel.alpha = 0
         self.tipLabel.alpha = 0
@@ -84,6 +94,19 @@ class ViewController: UIViewController {
 
     @IBAction func onTap(sender: AnyObject) {
         view.endEditing(true);
+    }
+    
+    //textField delegate for billField
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        
+        guard let text = billField.text else
+        {
+            return true
+        }
+        
+        let newLength = text.characters.count + string.characters.count - range.length
+        
+        return newLength <= Helper.billTextFieldLimit
     }
     
     // Calculate tips and total
