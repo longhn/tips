@@ -30,7 +30,7 @@ I am newbie to Swift and iOS, so it takes me a while to complete the assignment.
 
 ## License
 
-    Copyright [2016] [Long Hoang]
+    Copyright 2016 Long Hoang
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
