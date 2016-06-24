@@ -14,7 +14,7 @@ The following **required** functionality is complete:
 * [x] Settings page to change the default tip percentage and default for bill amount
 
 The following **optional** features are implemented:
-* [ x ] UI animations for label text field and tip controls
+* [x] UI animations for label text field and tip controls
 
 ## Walkthrough 
 
@@ -26,7 +26,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-I am beginner with Swift and iOS, so it takes me a while to complete the assignment
+I am newbie to Swift and iOS, so it takes me a while to complete the assignment.
 
 ## License
 
