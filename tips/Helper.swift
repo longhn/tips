@@ -14,6 +14,7 @@ import Foundation
 class Helper{
     
     static let billTextFieldLimit = 8
+    static let resetTimeInterval: NSTimeInterval = 600
     
     // Get default bill field setting
     static func getDefaultBillField() -> String {
@@ -33,5 +34,28 @@ class Helper{
         let selectedSegmentIndex = defaults.integerForKey("selectedSegmentIndex")
         
         return selectedSegmentIndex
+    }
+    
+    // Check if need to reset value for NSUserDefaults
+    static func needToReset(openingTime: NSDate?, lastAccess: NSDate?) -> Bool {
+        
+        guard let accessTime = lastAccess else
+        {
+            return false
+        }
+        
+        let needToReset = (openingTime!.timeIntervalSinceReferenceDate - accessTime.timeIntervalSinceReferenceDate) > resetTimeInterval
+        
+        return needToReset
+    }
+    
+    // Reset to default values
+    static func resetUserDefaults() {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        
+        defaults.setObject(nil, forKey: "defaultBillField")
+        defaults.setObject(nil, forKey: "selectedSegmentIndex")
+        defaults.setObject(nil, forKey: "Theme")
+        defaults.synchronize()
     }
 }

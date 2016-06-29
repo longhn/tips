@@ -26,15 +26,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var tipControl: UISegmentedControl!
     
+    @IBOutlet weak var barButtonItem: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print("view did load")
-        
-        // Do any additional setup after loading the view, typically from a nib.
-        
+    
         // set billField delegate
         billField.delegate = self
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(didBecomeActive), name: UIApplicationDidBecomeActiveNotification, object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -44,9 +44,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
-        print("view will appear")
-        
         self.billField.becomeFirstResponder()
         loadSetting()
         calculateTips()
@@ -55,7 +52,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        print("view did appear")
+        loadTheme()
         
         self.billField.alpha = 0
         self.billLabel.alpha = 0
@@ -80,12 +77,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        print("view will disappear")
     }
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-        print("view did disappear")
     }
 
     @IBAction func onEditingChanged(sender: AnyObject) {
@@ -127,6 +122,28 @@ class ViewController: UIViewController, UITextFieldDelegate {
         totalLabel.text = "$0.00"
         billField.text = Helper.getDefaultBillField()
         tipControl.selectedSegmentIndex = Helper.getSelectedSegmentIndex()
+    }
+    
+    // Load theme for tips
+    private func loadTheme() {
+        Style.loadTheme()
+        self.view.backgroundColor = Style.backgroundColor
+        self.horizontalLine.backgroundColor = Style.horizontalLineBackgroundColor
+        self.tipControl.tintColor = Style.tipControlBackgroundColor
+        self.barButtonItem.tintColor = Style.navigationTextColor
+        self.billLabel.textColor = Style.textColor
+        self.tipLabel.textColor = Style.textColor
+        self.tipTextLabel.textColor = Style.textColor
+        self.totalLabel.textColor = Style.textColor
+        self.totalTextLabel.textColor = Style.textColor
+        self.billLabel.textColor = Style.textColor
+    }
+    
+    // didBecomeActive observer
+    func didBecomeActive() {
+        loadTheme()
+        loadSetting()
+        calculateTips()
     }
 }
 

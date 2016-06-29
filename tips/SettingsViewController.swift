@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController, UITextFieldDelegate {
+class SettingsViewController: UIViewController, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate {
 
     @IBOutlet weak var defaultBillField: UITextField!
     
@@ -20,10 +20,21 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var saveSettingButton: UIButton!
     
+    @IBOutlet weak var themeTableView: UITableView!
+    
+    @IBOutlet var tapGesture: UITapGestureRecognizer!
+    
+    private var selectedTheme: String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         defaultBillField.delegate = self
+        tapGesture.delegate = self
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController!.navigationBar.tintColor = Style.navigationTextColor
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -52,12 +63,14 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    // Handle SaveSetting action
     @IBAction func SaveSetting(sender: AnyObject) {
         
         let defaults = NSUserDefaults.standardUserDefaults()
         
         defaults.setDouble(NSString(string: defaultBillField.text!).doubleValue, forKey: "defaultBillField")
         defaults.setInteger(tipControl.selectedSegmentIndex, forKey: "selectedSegmentIndex")
+        defaults.setObject(selectedTheme, forKey: "Theme")
         defaults.synchronize()
         
         self.navigationController?.popViewControllerAnimated(true)
@@ -67,6 +80,11 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         // TODO
     }
     
+    @IBAction func onTap(sender: AnyObject) {
+        view.endEditing(true);
+    }
+  
+    // Validate for textfield
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
         guard let text = defaultBillField.text else
@@ -83,5 +101,38 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     private func loadSetting(){
         defaultBillField.text = Helper.getDefaultBillField()
         tipControl.selectedSegmentIndex = Helper.getSelectedSegmentIndex()
+        
+        let indexPath = NSIndexPath(forRow: Style.getSelectedThemeIndex(), inSection: 0)
+        themeTableView.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: .None)
+    }
+    
+    // Load list of theme into table view
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier("ThemeLabelCell", forIndexPath: indexPath)
+        let theme = Style.availableThemes[indexPath.row]
+        cell.textLabel?.text = theme
+        
+        return cell
+    }
+    
+    // Return number of rows
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return Style.availableThemes.count
+    }
+    
+    // Handle selecting table row
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        selectedTheme = Style.availableThemes[indexPath.row]
+    }
+    
+    // UIGestureRecognizerDelegate method
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+        
+        if touch.view != nil && touch.view!.isDescendantOfView(self.themeTableView) {
+            return false
+        }
+        
+        return true
     }
 }
